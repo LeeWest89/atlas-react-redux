@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer
-      className="sticky bottom-0 left-0 flex w-screen items-center justify-center space-x-8 border-t-2 border-blue bg-off-white-light p-8"
+      className="sticky w-full bottom-0 left-0 flex w-screen items-center justify-center space-x-8 border-t-2 border-blue bg-off-white-light p-8"
     >
       <form>
         <input
