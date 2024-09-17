@@ -1,10 +1,14 @@
 import DeleteCard from "../images/DeleteCard.svg";
 
-export default function DeleteCardButton() {
+interface DeleteCardProps {
+  onClick: () => void;
+}
+
+export default function DeleteCardButton({ onClick }: DeleteCardProps) {
   return (
     <button
       className="justify-center hidden w-[20px] group-hover/card:block h-[20px]"
-      // onclick="alert('Delete card')"
+      onClick={onClick}
     >
       <img src={DeleteCard} alt="Delete Card"></img>
     </button>

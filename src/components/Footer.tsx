@@ -1,13 +1,34 @@
+import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addList, clearBoard } from "../slices/listsSlice";
+
 export default function Footer() {
+  const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (title.trim()) {
+      dispatch(addList({ title }));
+      setTitle('');
+    }
+  };
+
+  const handleClearBoard = () => {
+    dispatch(clearBoard());
+  };
+
   return (
     <footer
       className="sticky bottom-0 left-0 flex w-screen items-center justify-center space-x-8 border-t-2 border-blue bg-off-white-light p-8"
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Add List"
           name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="border-0 bg-transparent text-3xl font-semibold text-blue placeholder:text-blue placeholder:opacity-50 focus:outline-none"
         />
         <button
@@ -17,7 +38,7 @@ export default function Footer() {
           Save
         </button>
         <button
-          // onClick="alert('Clear board')"
+          onClick={handleClearBoard}
           type="button"
           className="rounded bg-teal px-6 py-4 text-xl font-semibold text-off-white-light"
         >
