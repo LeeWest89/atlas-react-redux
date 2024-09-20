@@ -12,18 +12,15 @@ interface ListProps {
 }
 
 export default function List({ listId, title }: ListProps) {
-  const cards = useSelector((state: RootState) => state.cards.items.filter((card: CardItem) => card.listId ===listId));
+  const cards = useSelector((state: RootState) => state.cards.items.filter((card: CardItem) => card.listId ===listId).sort((a, b) => a.index - b.index));
 
-  const { isOver, setNodeRef } = useDroppable({
+  const { setNodeRef } = useDroppable({
     id: listId,
   });
 
-  const style = {
-    backgroundColor: isOver ? "#e0ffe0" : undefined,
-  };
 
   return (
-    <div ref={setNodeRef} style={style} className="group/list flex flex-col items-center h-full min-w-96 max-w-[27.5rem] p-4">
+    <div ref={setNodeRef} className="group/list flex flex-col items-center h-full min-w-96 max-w-[27.5rem] p-4">
       <DeleteListButton listId={listId} />
       <h3 className="justify-center">{title}</h3>
       {cards.map((card: CardItem) => (

@@ -5,6 +5,7 @@ export interface CardItem {
   listId: string;
   title: string;
   text: string;
+  index: number;
 }
 
 interface Cards {
@@ -19,12 +20,13 @@ export const cardSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    createCard: (state, action: PayloadAction<{ listId: string; title: string; text: string; }>) => {
+    createCard: (state, action: PayloadAction<{ listId: string; title: string; text: string; index: number; }>) => {
       const newCard: CardItem = {
         id: nanoid(),
         listId: action.payload.listId,
         title: action.payload.title,
         text: action.payload.text,
+        index: action.payload.index,
       };
       state.items.push(newCard);
     },
@@ -42,7 +44,16 @@ export const cardSlice = createSlice({
       const card = state.items.find((item) => item.id === cardId);
 
       if (card) {
+        if (card.listId === newListId) {
+          return;
+        }
+
+        state.items = state.items.filter(item => item.id !== cardId);
+
+        const newIndex = state.items.filter(item => item.listId === newListId).length;
         card.listId = newListId;
+        card.index = newIndex;
+        state.items.push(card);
       }
     },
   },
