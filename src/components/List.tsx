@@ -4,6 +4,7 @@ import DeleteListButton from "./DeleteListButton";
 import Card from "./Card";
 import NewCardForm from "./NewCardForm";
 import { CardItem } from "../slices/cardsSlice";
+import {useDroppable} from '@dnd-kit/core';
 
 interface ListProps {
   listId: string;
@@ -13,8 +14,16 @@ interface ListProps {
 export default function List({ listId, title }: ListProps) {
   const cards = useSelector((state: RootState) => state.cards.items.filter((card: CardItem) => card.listId ===listId));
 
+  const { isOver, setNodeRef } = useDroppable({
+    id: listId,
+  });
+
+  const style = {
+    backgroundColor: isOver ? "#e0ffe0" : undefined,
+  };
+
   return (
-    <div className="group/list flex flex-col items-center h-full min-w-96 max-w-[27.5rem] p-4">
+    <div ref={setNodeRef} style={style} className="group/list flex flex-col items-center h-full min-w-96 max-w-[27.5rem] p-4">
       <DeleteListButton listId={listId} />
       <h3 className="justify-center">{title}</h3>
       {cards.map((card: CardItem) => (
