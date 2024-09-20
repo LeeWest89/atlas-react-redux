@@ -37,5 +37,5 @@ export const cardSlice = createSlice({
   },
 });
 
-export const { createCard, deleteCard, clearBoard } =cardSlice.actions;
+export const { createCard, deleteCard, clearBoard } = cardSlice.actions;
 export default cardSlice.reducer;
