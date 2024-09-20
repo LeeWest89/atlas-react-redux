@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addList, clearBoard } from "../slices/listsSlice";
+import { addList, clearBoard as clearListBoard } from "../slices/listsSlice";
+import { clearBoard as clearCardBoard } from "../slices/cardsSlice";
 
 export default function Footer() {
   const [title, setTitle] = useState('');
@@ -15,7 +16,8 @@ export default function Footer() {
   };
 
   const handleClearBoard = () => {
-    dispatch(clearBoard());
+    dispatch(clearListBoard());
+    dispatch(clearCardBoard());
   };
 
   return (
