@@ -5,12 +5,9 @@ import { expect, test } from "vitest";
 // createCard Test
 test("creates card correctly", () => {
   const initialState = { items: [] };
-  const action = createCard({
-    listId: "1",
-    title: "Card One",
-    text: "Text of card one",
-    index: 0,
-  });
+  const action = createCard(
+    { listId: "1", title: "Card One", text: "Text of card one", index: 0 },
+  );
   const state = cardSlice.reducer(initialState, action);
 
   expect(state).toEqual({
@@ -20,23 +17,17 @@ test("creates card correctly", () => {
 
 test("creates cards correctly on multiple lists", () => {
   const initialState = { items: [] };
-  let state = cardSlice.reducer(initialState, createCard({
-    listId: "1",
-    title: "Card One",
-    text: "Text of card one",
-    index: 0,
-  }));
+  let state = cardSlice.reducer(initialState, createCard(
+    { listId: "1", title: "Card One", text: "Text of card one", index: 0 },
+  ));
 
   expect(state).toEqual({
     items: [{ id: expect.any(String), listId: "1", title: "Card One", text: "Text of card one", index: 0 }],
   });
 
-  state = cardSlice.reducer(state, createCard({
-    listId: "2",
-    title: "Card Two",
-    text: "Text of card two",
-    index: 0,
-  }));
+  state = cardSlice.reducer(state, createCard(
+    {listId: "2", title: "Card Two", text: "Text of card two", index: 0 },
+  ));
 
   expect(state).toEqual({
     items: [
@@ -45,12 +36,9 @@ test("creates cards correctly on multiple lists", () => {
     ],
   });
 
-  state = cardSlice.reducer(state, createCard({
-    listId: "3",
-    title: "Card Three",
-    text: "Text of card three",
-    index: 0,
-  }));
+  state = cardSlice.reducer(state, createCard(
+    { listId: "3", title: "Card Three", text: "Text of card three", index: 0 }
+  ));
 
   expect(state).toEqual({
     items: [
@@ -65,12 +53,8 @@ test("creates cards correctly on multiple lists", () => {
 test("test if card is deleted correctly", () => {
   const initialState = {
     items: [{
-      id: "card 1",
-      listId: "1",
-      title: "Card One",
-      text: "Text of card one",
-      index: 0,
-    }],
+      id: "card 1", listId: "1", title: "Card One", text: "Text of card one", index: 0 },
+    ],
   };
 
   const action = deleteCard("card 1");
